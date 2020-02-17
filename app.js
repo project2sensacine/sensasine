@@ -23,7 +23,7 @@ require('./configs/passport')(app)
 app.use('/', require('./routes/index.routes'));
 app.use('/auth', require('./routes/auth.routes'));
 app.use('/movies', require('./routes/movies.routes'));
-app.use('/places', require('./routes/cinemas'));
+app.use('/places', require('./routes/cinemas.routes'));
 
 
 module.exports = app;

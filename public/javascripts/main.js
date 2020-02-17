@@ -1,18 +1,50 @@
+// function initMap() {
+//   console.log("rsto pasa")
+//   let initialCoords = {
+//     lat: 40.4165001,
+//     lng: -3.7025599
+//   };
+
+//   let mapOptions = {
+//     center: initialCoords,
+//     zoom: 10
+//   };
+//   let myMap = new google.maps.Map(
+//     document.getElementById('placeMap'), mapOptions);
+//   //getPlaces();
+// }
+let geocoder;
+let map;
+
 function initMap() {
-  console.log("rsto pasa")
-  // let initialCoords = {
-  //   lat: 40.4165001,
-  //   lng: -3.7025599
-  // };
+  geocoder = new google.maps.Geocoder();
 
   let mapOptions = {
-    // center: User.location,
-    zoom: 10
-  };
-  let myMap = new google.maps.Map(
-    document.getElementById('placeMap'), mapOptions);
-  //getPlaces();
+    zoom: 10,
+    center: codeAddress()
+  }
+  map = new google.maps.Map(document.getElementById('placeMap'), mapOptions);
 }
+
+function codeAddress() {
+  let address = document.getElementById('address').value;
+  geocoder.geocode({
+    'address': address
+  }, function (results, status) {
+    if (status == 'OK') {
+      map.setCenter(results[0].geometry.location);
+      let marker = new google.maps.Marker({
+        map: map,
+
+        position: results[0].geometry.location
+      });
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+
+
 
 
 

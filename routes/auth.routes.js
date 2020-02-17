@@ -72,7 +72,7 @@ router.post("/signup", (req, res, next) => {
   });
 });
 
-router.get('/profile', ensureLoggedIn('/auth/login'), (req, res) => {
+router.get('/profile', ensureLoggedIn('/login'), (req, res) => {
   (res.render('auth/profile', {
     user: req.user,
   }))

@@ -3,11 +3,13 @@
 <div class="info">
   <h3>List of nearby cinemas</h3>
 
-  <figure id="placeMap"></figure>
-</div>
+  <div>
+    <input id="address" type="textbox" value="{{user.location}}">
+    <input type="button" value="Search" onclick="codeAddress()">
+  </div>
+  <div id="placeMap"></div>
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="../javascripts/main.js"></script>
-{{!-- <script src=" https://maps.googleapis.com/maps/api/js?key={{Api}}&callback=initMap"> </script> --}}
-<script
-  src="https://maps.googleapis.com/maps/api/geocode/json?address={{user.location}}&key={{Api}}&callback=initMap"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../javascripts/main.js"></script>
+  <script src=" https://maps.googleapis.com/maps/api/js?key={{Api}}&callback=initMap"> </script>
+  {{!-- <script src="https://maps.googleapis.com/maps/api/geocode/json?address={{user.location}}&key={{Api}}"></script> --}}
