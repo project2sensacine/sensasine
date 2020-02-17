@@ -19,7 +19,6 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 // Enable authentication using session + passport
 
-require('./configs/passport.config')
 require('./configs/passport')(app)
 
 
