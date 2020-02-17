@@ -16,11 +16,13 @@ router.get("/login", (req, res, next) => {
 });
 
 router.post("/login", passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/auth/login",
-  failureFlash: true,
-  passReqToCallback: true
-}));
+    successRedirect: "/",
+    failureRedirect: "/auth/login",
+    failureFlash: true,
+    passReqToCallback: true
+  }
+
+));
 
 router.get("/signup", (req, res, next) => {
   res.render("auth/signup");
@@ -33,7 +35,6 @@ router.post("/signup", (req, res, next) => {
     res.render("auth/signup", {
       message: "Indicate username and password"
     });
-    return;
   }
 
   User.findOne({
