@@ -1,6 +1,9 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+main{
+  padding: 50px;
 }
 
 a {
@@ -11,3 +14,16 @@ a {
   height: 400px;
   width: 100%;
 }
+
+img{
+
+  height: 500px;
+  object-fit: cover;
+}
+
+.actor img{
+  height: 100px;
+  object-fit: cover;
+}
+
+@import "node_modules/@glidejs/glide/src/assets/sass/glide.core";
