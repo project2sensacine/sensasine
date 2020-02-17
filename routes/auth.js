@@ -34,7 +34,8 @@ router.get("/signup", (req, res, next) => {
 router.post("/signup", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
-  if (username === "" || password === "") {
+  const location = req.body.location;
+  if (username === "" || password === "" || location === "") {
     res.render("auth/signup", {
       message: "Indicate username and password"
     });
@@ -55,7 +56,8 @@ router.post("/signup", (req, res, next) => {
 
     const newUser = new User({
       username,
-      password: hashPass
+      password: hashPass,
+      location
     });
 
     newUser.save()
@@ -70,7 +72,7 @@ router.post("/signup", (req, res, next) => {
   });
 });
 
-router.get('/profile', ensureLoggedIn('/login'), (req, res) => {
+router.get('/profile', ensureLoggedIn('/auth/login'), (req, res) => {
   (res.render('auth/profile', {
     user: req.user,
   }))
