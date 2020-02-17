@@ -1,5 +1,5 @@
 module.exports = app => {
-  app.locals.title = 'SENSASINEMA'
+  app.locals.titulo = 'SENSASINEMA'
   app.locals.Api = process.env.APIMAPS
 
 }
