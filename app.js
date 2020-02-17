@@ -14,7 +14,7 @@ require('./configs/debugger.config')
 require('./configs/middleware.config')(app)
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+require('./configs/locals.configs')(app)
 
 
 // Enable authentication using session + passport
@@ -25,6 +25,6 @@ require('./configs/passport')(app)
 //Rutas
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
-
+app.use('/auth', require('./routes/auth'));
 
 module.exports = app;
