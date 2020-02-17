@@ -23,15 +23,9 @@ require('./configs/passport.config')
 require('./configs/passport')(app)
 
 
-
-
-
 //Rutas
-const index = require('./routes/index');
-app.use('/', index);
-
-const authRoutes = require('./routes/auth');
-app.use('/auth', authRoutes);
+app.use('/', require('./routes/index'));
+app.use('/auth', require('./routes/auth'));
 
 
 module.exports = app;
