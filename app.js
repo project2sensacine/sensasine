@@ -9,22 +9,19 @@ const app = express();
 require('./configs/mongoose.config')(app)
 require('./configs/debugger.config')
 
-
 // Middleware Setup
 require('./configs/middleware.config')(app)
 
-// default value for title local
+// Default value for title local
 require('./configs/locals.configs')(app)
-
 
 // Enable authentication using session + passport
 
 require('./configs/passport')(app)
 
-
 //Rutas
-app.use('/', require('./routes/index'));
-app.use('/auth', require('./routes/auth'));
+app.use('/', require('./routes/index.routes'));
+app.use('/auth', require('./routes/auth.routes'));
 app.use('/movies', require('./routes/movies.routes'));
 
 
