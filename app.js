@@ -25,6 +25,7 @@ require('./configs/passport')(app)
 //Rutas
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
+app.use('/movies', require('./routes/movies.routes'));
 
 
 module.exports = app;
