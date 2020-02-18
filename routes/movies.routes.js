@@ -9,12 +9,11 @@ const axiosApp = axios.create({ baseURL: `https://api.themoviedb.org/3` })
 
 router.get('/:id/details', (req, res, next) => {
 
-  const promiseFilm = axiosApp.get(`https://api.themoviedb.org/3/movie/${req.params.id}?api_key=3d2f74f58c6181b5648f9595b8c34329&language=en-US`)
-  const promiseCrew = axiosApp.get(`https://api.themoviedb.org/3/movie/${req.params.id}/credits?api_key=3d2f74f58c6181b5648f9595b8c34329`)
+  const promiseFilm = axiosApp.get(`https://api.themoviedb.org/3/movie/${req.params.id}?api_key=${process.env.movieAPI}&language=en-US`)
+  const promiseCrew = axiosApp.get(`https://api.themoviedb.org/3/movie/${req.params.id}/credits?api_key=${process.env.movieAPI}`)
 
   Promise.all([promiseFilm, promiseCrew])
     .then(promiseResult => {
-      console.log(promiseResult[0].data)
       res.render('movies/profile', {
         movie: promiseResult[0].data,
         crew: promiseResult[1].data.cast
@@ -26,15 +25,24 @@ router.get('/:id/details', (req, res, next) => {
 
 
 router.get('/search', (req, res, next) => {
-  console.log(req.query.query)
-  axios.get(`https://api.themoviedb.org/3/search/movie?api_key=3d2f74f58c6181b5648f9595b8c34329&query=${req.query.query}`)
+
+  axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.movieAPI}&query=${req.query.query}`)
     .then(result => {
-      console.log(req.query.query)
-      res.render('movies/profile', result)
+      res.render('movies/search-result', { search: req.query.query, results: result.data.results })
     })
     .catch(err => console.log(err))
 
 })
+
+router.get('/actor/:id/profile', (req, res, next) => {
+
+  axios.get(`https://api.themoviedb.org/3/person/${req.params.id}?api_key=${process.env.movieAPI}&language=en-US`)
+    .then(result => {
+      res.render('movies/actor-profile', result.data)
+    })
+})
+
+
 
 
 

@@ -24,11 +24,13 @@
               {{#each crew}}
 
               <li class="glide__slide">
-                <figure class="actor">
-                  <img src="https://image.tmdb.org/t/p/w276_and_h350_face{{profile_path}}" alt="{{name}}">
-                </figure>
-                <h5>{{name}}</h5>
-                <p>{{character}}</p>
+                <a href="/movies/actor/{{id}}/profile">
+                  <figure class="actor">
+                    <img src="https://image.tmdb.org/t/p/w276_and_h350_face{{profile_path}}" alt="{{name}}">
+                  </figure>
+                  <h5>{{name}}</h5>
+                  <p>{{character}}</p>
+                </a>
               </li>
 
               {{/each}}
