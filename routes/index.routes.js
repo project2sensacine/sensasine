@@ -8,8 +8,16 @@ const axiosApp = axios.create({ baseURL: `https://api.themoviedb.org/3` })
 
 router.get('/', (req, res, next) => {
 
-  axiosApp.get('/movie/popular?api_key=3d2f74f58c6181b5648f9595b8c34329&language=en-US&page=1')
-    .then(popularMovies => res.render('index', { movies: popularMovies.data.results }))
+  const popularMovies = axiosApp.get('/movie/popular?api_key=3d2f74f58c6181b5648f9595b8c34329&language=en-US&page=1')
+  const upcomingMovies = axiosApp.get('/movie/upcoming?api_key=3d2f74f58c6181b5648f9595b8c34329&language=en-US&page=1')
+
+
+  Promise.all([popularMovies, upcomingMovies])
+    .then(promiseResult => {
+
+      console.log(promiseResult[0].data.results, promiseResult[1].data.results)
+      res.render('index', { popular: promiseResult[0].data.results, upcoming: promiseResult[1].data.results })
+    })
     .catch(err => console.log(err))
 
 });
