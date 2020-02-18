@@ -14,8 +14,6 @@ router.get('/', (req, res, next) => {
 
   Promise.all([popularMovies, upcomingMovies])
     .then(promiseResult => {
-
-      console.log(promiseResult[0].data.results, promiseResult[1].data.results)
       res.render('index', { popular: promiseResult[0].data.results, upcoming: promiseResult[1].data.results })
     })
     .catch(err => console.log(err))
