@@ -7,9 +7,13 @@
     <input id="address" type="textbox" value="{{user.location}}">
     <input type="button" value="Search" onclick="codeAddress()">
   </div>
+
+  <br>
   <div id="placeMap"></div>
 
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="../javascripts/main.js"></script>
-  <script src=" https://maps.googleapis.com/maps/api/js?key={{Api}}&callback=initMap"> </script>
-  {{!-- <script src="https://maps.googleapis.com/maps/api/geocode/json?address={{user.location}}&key={{Api}}"></script> --}}
+  <script
+    src="https://maps.googleapis.com/maps/api/js?v=quarterly&key={{Api}}&callback=initMap&libraries=places"> </script>
+  {{!-- <script
+    src="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={{user.location}}&radius=1500&type=movie_theater&key={{Api}}&callback=initMap"></script> --}}
