@@ -2,25 +2,28 @@ let geocoder;
 var map;
 var service;
 let infowindow;
+let request;
 
 //initiator
 function initMap() {
+  // var movieLocation = results[0].geometry.location();
   geocoder = new google.maps.Geocoder();
   infowindow = new google.maps.InfoWindow();
   let mapOptions = {
-    zoom: 10,
+    zoom: 15,
     center: codeAddress()
   };
-
-  map = new google.maps.Map(document.getElementById("placeMap"), mapOptions);
-
-  let request = {
+  request = {
+    // location: new google.maps.LatLng(results[0].geometry.bounds, results[0].geometry.bounds),
+    // radius: "5000",
     bounds: new google.maps.LatLngBounds(
-      new google.maps.LatLng(54.69726685890506, -2.7379201682812226),
-      new google.maps.LatLng(55.38942944437183, -1.2456105979687226)
+      new google.maps.LatLng(40.217815, -4.17753),
+      new google.maps.LatLng(40.623464, -3.474426)
     ),
     type: ["movie_theater"]
   };
+
+  map = new google.maps.Map(document.getElementById("placeMap"), mapOptions);
 
   service = new google.maps.places.PlacesService(map);
 
@@ -30,17 +33,20 @@ function initMap() {
 //geocoder
 function codeAddress() {
   let address = document.getElementById("address").value;
-  geocoder.geocode(
-    {
+  geocoder.geocode({
       address: address
     },
-    function(results, status) {
+    function (results, status) {
       if (status == "OK") {
+
         map.setCenter(results[0].geometry.location);
 
         let marker = new google.maps.Marker({
           map: map,
-          position: results[0].geometry.location
+          position: results[0].geometry.location,
+          icon: {
+            url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+          }
         });
       } else {
         alert("Geocode was not successful for the following reason: " + status);
@@ -48,6 +54,9 @@ function codeAddress() {
     }
   );
 }
+
+
+
 // places
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -64,7 +73,7 @@ function createMarker(place) {
     position: place.geometry.location
   });
 
-  google.maps.event.addListener(marker, "click", function() {
+  google.maps.event.addListener(marker, "click", function () {
     infowindow.setContent(place.name);
     infowindow.open(map, this);
   });
