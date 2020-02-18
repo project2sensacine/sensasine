@@ -8,6 +8,12 @@
     <div class="col-md-6">
       <h3>{{movie.title}}</h3>
       <p>{{movie.overview}}</p>
+      <h5>Géneros</h5>
+      <ul>
+        {{#each movie.genres}}
+        <li>{{name}}</li>
+        {{/each}}
+      </ul>
       <div class="row">
 
 
@@ -30,22 +36,11 @@
             </ul>
           </div>
         </div>
-        {{!-- {{#each crew}}
-        <div class="col-md-3">
-          <figure class="actor">
-            <img src="https://image.tmdb.org/t/p/w276_and_h350_face{{profile_path}}" alt="{{name}}">
-          </figure>
-          <h5>{{name}}</h5>
-          <p>{{character}}</p>
-        </div>
-        {{/each}} --}}
       </div>
     </div>
   </div>
 </div>
 <script src="../../glide/dist/glide.min.js"></script>
-{{!-- <script src="glide/dist/main.js"></script> --}}
-
 <script>
   new Glide('.glide', {
     type: 'carousel',

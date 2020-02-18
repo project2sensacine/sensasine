@@ -1,9 +1,67 @@
-<h2>Peliculas famosas</h2>
-{{#each movies}}
+<div class="row">
+  <h3>Popular Movies</h3>
+  <div class="glide">
 
-<h5>{{title}}</h5>
-<figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{poster_path}}" alt="{{title}}"></figure>
-<a href="/movies/{{id}}/details">Ver detalles</a>
-<hr>
+    <div class="glide__track" data-glide-el="track">
+      <ul class="glide__slides">
 
-{{/each}}
+        {{#each popular}}
+
+        <li class="glide__slide">
+
+          <h5>{{title}}</h5>
+          <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{poster_path}}" alt="{{title}}"></figure>
+          <a href="/movies/{{id}}/details">Ver detalles</a>
+          <hr>
+
+        </li>
+
+        {{/each}}
+
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <h3>Upcoming Movies</h3>
+  <div class="glide">
+
+    <div class="glide__track" data-glide-el="track">
+      <ul class="glide__slides">
+
+        {{#each upcoming}}
+
+        <li class="glide__slide">
+
+          <h5>{{title}}</h5>
+          <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{poster_path}}" alt="{{title}}"></figure>
+          <a href="/movies/{{id}}/details">Ver detalles</a>
+          <hr>
+
+        </li>
+
+        {{/each}}
+
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<script src="../glide/dist/glide.min.js"></script>
+<script>
+  const glide1 = new Glide('.glide', {
+    type: 'carousel',
+    startAt: 0,
+    perView: 6
+  }).mount()
+
+  const glide2 = new Glide('.glide2', {
+    type: 'carousel',
+    startAt: 0,
+    perView: 4
+  }).mount()
+
+  console.log(glide2)
+</script>
