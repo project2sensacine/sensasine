@@ -61,6 +61,7 @@ router.post("/signup", (req, res, next) => {
     });
 
     newUser.save()
+
       .then(() => {
         res.redirect("/auth/profile");
       })
@@ -72,7 +73,7 @@ router.post("/signup", (req, res, next) => {
   });
 });
 
-router.get('/profile', ensureLoggedIn('/login'), (req, res) => {
+router.get('/profile', ensureLoggedIn('/auth/login'), (req, res) => {
   (res.render('auth/profile', {
     user: req.user,
   }))
