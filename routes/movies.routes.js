@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Genre = require("../models/genres.model");
 
 const axios = require('axios')
 const axiosApp = axios.create({ baseURL: `https://api.themoviedb.org/3` })
@@ -22,6 +23,15 @@ router.get('/:id/details', (req, res, next) => {
     .catch(err => console.log(err))
 })
 
+router.get('/ggg', (reqa, res, next) => {
+
+  axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.movieAPI}&language=en-US`)
+    .then(results => Genre.create(results.data.genres))
+    .then(genres => console.log(" se ha cargado la info en la bbdd", genres))
+    .catch(err => console.log(err))
+})
+
+
 
 router.get('/search', (req, res, next) => {
 
@@ -43,8 +53,17 @@ router.get('/actor/:id/profile', (req, res, next) => {
 
 router.get('/search/:genre', (req, res, next) => {
 
+  Genre.find({ name: req.params.genre })
+    .then(result => {
+      console.log(result)
+      axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.movieAPI}&with_genres=${result.id}`)
+        .then(results => {
+          res.render('movies/search-result', { peliculas: results })
+        })
+    })
+    .catch(err => console.log(err))
   axios.get(`https://api.themoviedb.org/3/person/${req.params.id}?api_key=${process.env.movieAPI}&language=en-US`)
-  // https://api.themoviedb.org/3/genre/movie/list?api_key=3d2f74f58c6181b5648f9595b8c34329&language=en-US URL con todos los generos y los codigos
+  // https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.movieAPI}&language=en-US URL con todos los generos y los codigos
   // https://api.themoviedb.org/3/discover/movie?api_key=${process.env.movieAPI}&with_genres=28    peliculas por 
 
 })
