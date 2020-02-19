@@ -2,14 +2,49 @@
   <div class="row">
     <div class="col-md-4">
       <figure class="profile">
-        <img src="https://image.tmdb.org/t/p/w276_and_h350_face{{profile_path}}" alt="{{name}}">
+        <img src="https://image.tmdb.org/t/p/w276_and_h350_face{{details.profile_path}}" alt="{{details.name}}">
       </figure>
     </div>
     <div class="col-md-6">
-      <h2>{{name}}</h2>
-      <h5>Nacimiento: {{birthday}}</h5>
-      <p>{{biography}}</p>
+      <h2>{{details.name}}</h2>
+      <h5>Nacimiento: {{details.birthday}}</h5>
+      <p>{{details.biography}}</p>
 
     </div>
   </div>
+
+  <div class="glide">
+
+    <div class="glide__track" data-glide-el="track">
+      <ul class="glide__slides">
+
+        {{#each movies}}
+
+        <li class="glide__slide">
+
+          <h5>{{title}}</h5>
+          <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{poster_path}}" alt="{{title}}">
+          </figure>
+          <a href="/movies/{{id}}/details">Ver detalles</a>
+          <hr>
+
+        </li>
+
+        {{/each}}
+
+      </ul>
+    </div>
+  </div>
+
 </div>
+
+<script src='/glide/dist/glide.min.js'></script>
+<script>
+  new Glide('.glide', {
+    type: 'carousel',
+    startAt: 0,
+    perView: 4
+  }).mount()
+  console.log("llama al glide")
+
+</script>

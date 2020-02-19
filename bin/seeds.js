@@ -10,19 +10,11 @@ const User = require("../models/user.model");
 const Genre = require("../models/genres.model");
 
 const axios = require('axios')
-const axiosApp = axios.create({ baseURL: `https://api.themoviedb.org/3` })
+const axiosApp = axios.create({
+  baseURL: `https://api.themoviedb.org/3`
+})
 
 const bcryptSalt = 10;
-
-// mongoose
-//   .connect(`mongodb+srv://sensasine:sensasine@cluster0-vrpzq.mongodb.net/sensasine?retryWrites=true&w=majority`, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-//   })
-//   .then(x => { console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`) })
-//   .catch(err => { console.error('Error connecting to mongo', err) });
-
-
 
 mongoose
   .connect(process.env.DB_REMOTE, {
@@ -39,8 +31,7 @@ axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.m
   .then(genres => console.log(" se ha cargado la info en la bbdd", genres))
   .catch(err => console.log(err))
 
-let users = [
-  {
+let users = [{
     username: "alice",
     password: bcrypt.hashSync("alice", bcrypt.genSaltSync(bcryptSalt)),
   },
@@ -66,6 +57,3 @@ User.deleteMany()
     mongoose.disconnect()
     throw err
   })
-
-
-
