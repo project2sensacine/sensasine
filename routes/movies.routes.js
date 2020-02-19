@@ -52,14 +52,15 @@ router.get('/actor/:id/profile', (req, res, next) => {
 })
 
 router.get('/search/:genre', (req, res, next) => {
-
   Genre.find({ name: req.params.genre })
     .then(result => {
-      console.log(result)
-      axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.movieAPI}&with_genres=${result.id}`)
+      axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.movieAPI}&with_genres=${result[0].id}`)
         .then(results => {
-          res.render('movies/search-result', { peliculas: results })
+          console.log(results.data.results)
+          res.render('movies/search-result', { search: req.params.genre, results: results.data.results })
         })
+        .catch(err => console.log(err))
+      //res.render('movies/search-result', { peliculas: results })
     })
     .catch(err => console.log(err))
   axios.get(`https://api.themoviedb.org/3/person/${req.params.id}?api_key=${process.env.movieAPI}&language=en-US`)
@@ -67,6 +68,7 @@ router.get('/search/:genre', (req, res, next) => {
   // https://api.themoviedb.org/3/discover/movie?api_key=${process.env.movieAPI}&with_genres=28    peliculas por 
 
 })
+
 
 
 

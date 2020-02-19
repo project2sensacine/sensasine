@@ -1,55 +1,51 @@
-<div class="row">
-  <h3>Popular Movies</h3>
-  <div class="glide">
+<h3>Popular Movies</h3>
+<div class="glide">
 
-    <div class="glide__track" data-glide-el="track">
-      <ul class="glide__slides">
+  <div class="glide__track" data-glide-el="track">
+    <ul class="glide__slides">
 
-        {{#each popular}}
+      {{#each popular}}
 
-        <li class="glide__slide">
+      <li class="glide__slide">
 
-          <h5>{{title}}</h5>
-          <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{poster_path}}" alt="{{title}}"></figure>
-          <a href="/movies/{{id}}/details">Ver detalles</a>
-          <hr>
+        <h5>{{title}}</h5>
+        <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{poster_path}}" alt="{{title}}"></figure>
+        <a href="/movies/{{id}}/details">Ver detalles</a>
+        <hr>
 
-        </li>
+      </li>
 
-        {{/each}}
+      {{/each}}
 
-      </ul>
-    </div>
+    </ul>
   </div>
 </div>
 
-<div class="row">
-  <h3>Upcoming Movies</h3>
-  <div class="glide">
+<h3>Upcoming Movies</h3>
+<div class="glide2">
 
-    <div class="glide__track" data-glide-el="track">
-      <ul class="glide__slides">
+  <div class="glide__track" data-glide-el="track">
+    <ul class="glide__slides">
 
-        {{#each upcoming}}
+      {{#each upcoming}}
 
-        <li class="glide__slide">
+      <li class="glide__slide">
 
-          <h5>{{title}}</h5>
-          <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{poster_path}}" alt="{{title}}"></figure>
-          <a href="/movies/{{id}}/details">Ver detalles</a>
-          <hr>
+        <h5>{{title}}</h5>
+        <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{poster_path}}" alt="{{title}}"></figure>
+        <a href="/movies/{{id}}/details">Ver detalles</a>
+        <hr>
 
-        </li>
+      </li>
 
-        {{/each}}
+      {{/each}}
 
-      </ul>
-    </div>
+    </ul>
   </div>
 </div>
 
 
-<script src="../glide/dist/glide.min.js"></script>
+<script src="/glide/dist/glide.min.js"></script>
 <script>
   const glide1 = new Glide('.glide', {
     type: 'carousel',
@@ -60,8 +56,7 @@
   const glide2 = new Glide('.glide2', {
     type: 'carousel',
     startAt: 0,
-    perView: 4
+    perView: 6
   }).mount()
 
-  console.log(glide2)
 </script>
