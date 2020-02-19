@@ -1,16 +1,19 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const movieSchema = new Schema({
-  title: String,
-  description: String,
-  poster_path: String,
-}, {
-  timestamps: {
-    createdAt: 'created_at',
-    updatedAt: 'updated_at'
+const movieSchema = new Schema(
+  {
+    APIid: Number,
+    poster_path: String,
+    title: String
+  },
+  {
+    timestamps: {
+      createdAt: "created_at",
+      updatedAt: "updated_at"
+    }
   }
-});
+);
 
-const Movie = mongoose.model('Movie', movieSchema);
+const Movie = mongoose.model("Movie", movieSchema);
 module.exports = Movie;
