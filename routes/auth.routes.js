@@ -19,11 +19,11 @@ router.get("/login", ensureLoggedOut(), (req, res, next) => {
 });
 
 router.post("/login", passport.authenticate("local", {
-    successRedirect: '/auth/profile',
-    failureRedirect: "/auth/login",
-    failureFlash: true,
-    passReqToCallback: true
-  }
+  successRedirect: '/auth/profile',
+  failureRedirect: "/auth/login",
+  failureFlash: true,
+  passReqToCallback: true
+}
 
 ));
 
@@ -32,6 +32,7 @@ router.get("/signup", (req, res, next) => {
 });
 
 router.post("/signup", (req, res, next) => {
+  console.log('HOLA HOLA')
   const username = req.body.username;
   const password = req.body.password;
   const location = req.body.location;
@@ -60,20 +61,19 @@ router.post("/signup", (req, res, next) => {
       location
     });
 
-    newUser.save()
-
-      .then(() => {
-        res.redirect("/auth/profile");
+    User.create(newUser)
+      .then(user => {
+        req.login(user, function (err) {
+          if (err) { return next(err); }
+          return res.redirect('/auth/profile');
+        })
       })
-      .catch(err => {
-        res.render("auth/signup", {
-          message: "Something went wrong"
-        });
-      })
+      .catch(() => res.render("auth/signup", { message: "Something went wrong" }))
   });
 });
 
-router.get('/profile', ensureLoggedIn('/auth/login'), (req, res) => {
+
+router.get('/profile', ensureLoggedIn('/login'), (req, res) => {
   (res.render('auth/profile', {
     user: req.user,
   }))
