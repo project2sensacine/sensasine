@@ -1,6 +1,17 @@
-if (document.querySelectorAll('#glide1').length) {
+if (document.querySelectorAll('.glide').length) {
 
-  new Glide('#glide1', {
+  new Glide('.glide1', {
+    type: 'slider',
+    startAt: 0,
+    perView: 3
+  }).mount().setActive()
+    ;
+
+}
+
+if (document.querySelectorAll('.glide1').length) {
+
+  new Glide('.glide2', {
     type: 'slider',
     startAt: 0,
     perView: 3
@@ -8,12 +19,11 @@ if (document.querySelectorAll('#glide1').length) {
 
 }
 
-if (document.querySelectorAll('#glide2').length) {
+if (document.querySelectorAll('.glide1').length) {
 
-  new Glide('#glide2', {
-    type: 'slider',
+  new Glide('.glide3', {
+    type: 'carousel',
     startAt: 0,
-    perView: 3
-  }).mount();
-
+    perView: 6
+  }).mount()
 }
