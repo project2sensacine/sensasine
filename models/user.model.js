@@ -7,7 +7,7 @@ const userSchema = new Schema(
     password: String,
     location: String,
     favoriteMovie: Array,
-    wishListMovie: Array,
+    wishMovie: Array,
   },
   {
     timestamps: {
