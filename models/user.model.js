@@ -6,7 +6,8 @@ const userSchema = new Schema(
     username: String,
     password: String,
     location: String,
-    favoriteMovies: [{ type: Schema.Types.ObjectId, ref: 'Movie' }]
+    favoriteMovie: Array,
+    wishListMovie: Array,
   },
   {
     timestamps: {

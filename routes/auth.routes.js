@@ -3,6 +3,7 @@ const passport = require("passport");
 const router = express.Router();
 const User = require("../models/user.model");
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
+const axios = require("axios");
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -63,7 +64,7 @@ router.post("/signup", (req, res, next) => {
 
       User.create(newUser)
         .then(user => {
-          req.login(user, function(err) {
+          req.login(user, function (err) {
             if (err) {
               return next(err);
             }
@@ -77,10 +78,32 @@ router.post("/signup", (req, res, next) => {
   );
 });
 
-router.get("/profile", ensureLoggedIn("/login"), (req, res) => {
-  res.render("auth/profile", {
-    user: req.user
-  });
+
+router.get("/profile", ensureLoggedIn("/auth/login"), (req, res) => {
+
+  let promises = []
+  console.log("YAYAYAYAYAYAY")
+  req.user.favoriteMovie.forEach(elm => {
+    const promesa = axios.get(`https://api.themoviedb.org/3/movie/${elm}?api_key=${process.env.movieAPI}&language=en-US`)
+    // .then(movie => {
+    //   favMovies.push(movie.data)
+    // })
+    // .then(console.log(favMovies, "--------------------------"))
+    // .catch(err => console.log(err))
+    promises.push(promesa)
+  })
+
+
+  Promise.all(promises)
+    .then(movies => {
+      console.log("promise all", movies)
+      const data = { user: req.user, favMovies: movies }
+      console.log(data)
+      res.render("auth/profile", data)
+    })
+    .catch(err => res.render("error"))
+
+
 });
 
 router.get("/logout", (req, res) => {

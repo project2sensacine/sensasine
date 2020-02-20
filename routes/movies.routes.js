@@ -8,9 +8,7 @@ const passport = require("passport");
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 
 const axios = require("axios");
-const axiosApp = axios.create({
-  baseURL: `https://api.themoviedb.org/3`
-});
+const axiosApp = axios.create({ baseURL: `https://api.themoviedb.org/3` });
 
 // // https://api.themoviedb.org/3/search/movie?api_key=###&query=the+avengers
 
@@ -32,15 +30,15 @@ router.get("/:id/details", (req, res, next) => {
     .catch(err => console.log(err));
 });
 
-router.get("/ggg", (reqa, res, next) => {
-  axios
-    .get(
-      `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.movieAPI}&language=en-US`
-    )
-    .then(results => Genre.create(results.data.genres))
-    .then(genres => console.log(" se ha cargado la info en la bbdd", genres))
-    .catch(err => console.log(err));
-});
+// router.get("/ggg", (reqa, res, next) => {
+//   axios
+//     .get(
+//       `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.movieAPI}&language=en-US`
+//     )
+//     .then(results => Genre.create(results.data.genres))
+//     .then(genres => console.log(" se ha cargado la info en la bbdd", genres))
+//     .catch(err => console.log(err));
+// });
 
 router.get("/search", (req, res, next) => {
   axios
@@ -90,40 +88,71 @@ router.get('/search/:genre', (req, res, next) => {
   // https://api.themoviedb.org/3/discover/movie?api_key=${process.env.movieAPI}&with_genres=28    peliculas por
 });
 
-router.get(
-  "/:APIid/:poster_path/:title/favourites",
-  ensureLoggedIn("/login"),
-  (req, res, next) => {
-    Movie.find({ APIid: req.params.APIid }).then(movie => {
-      if (movie !== null) {
-        const favoritemovies = req.user.favoriteMovies;
-        favoritemovies.push(movie._id);
 
-        // req.user.favoriteMovies.push()
 
-        User.findByIdAndUpdate(req.user._id, {
-          favoritemovies: favoritemovies
-        });
-      } else {
-        const newMovie = new Movie({
-          APIid: req.params.APIid,
-          poster_path: req.params.poster_path,
-          title: req.params.title
-        });
-        Movie.create(newMovie)
-          .then(() => console.log("La pelicula se ha creado correctamente"))
-          .catch(err => console.log(err));
-      }
+//GUARDAR PELIS EN FAVORITOS
+router.get("/:APIid/favourites", ensureLoggedIn("/login"), (req, res, next) => {
 
-      const favoritemovies = req.user.favoriteMovies;
-      favoritemovies.push();
-      User.findById(req.user.id);
-      //       .then(user =>
-      // console.log("hola")
-    });
-    newMovie;
-    Movie.create();
-  }
-);
+  User.findByIdAndUpdate(req.user._id, { $push: { favoriteMovie: req.params.APIid } }, { new: true })
+    .then(x => console.log(x))
+    .catch(err => console.log(err))
+});
+
+// router.get("/:APIid/whishlist", ensureLoggedIn("/login"), (req, res, next) => {
+
+//   User.findByIdAndUpdate(req.user._id, { $push: { favMovie: req.params.APIid } }, { new: true })
+//     .then(x => console.log(x))
+//     .catch(err => console.log(err))
+// });
+
+
+
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Movie.find({ APIid: req.params.APIid })
+  //   .then(movie => {
+
+  //     if (movie !== null) {
+  //       const favoritemovies = req.user.favoriteMovies;
+  //       favoritemovies.push(movie._id);
+
+  //       // req.user.favoriteMovies.push()
+
+  //       User.findByIdAndUpdate(req.user._id, {
+  //         favoritemovies: favoritemovies
+  //       });
+  //     } else {
+  //       const newMovie = new Movie({
+  //         APIid: req.params.APIid,
+  //         poster_path: req.params.poster_path,
+  //         title: req.params.title
+  //       });
+  //       Movie.create(newMovie)
+  //         .then(() => console.log("La pelicula se ha creado correctamente"))
+  //         .catch(err => console.log(err));
+  //     }
+
+  //     const favoritemovies = req.user.favoriteMovies;
+  //     favoritemovies.push();
+  //     User.findById(req.user.id);
+  //     //       .then(user =>
+  //     // console.log("hola")
+  //   });
+  // newMovie;
+  // Movie.create();
