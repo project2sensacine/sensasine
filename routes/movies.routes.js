@@ -19,13 +19,18 @@ router.get("/:id/details", (req, res, next) => {
   const promiseCrew = axios.get(
     `https://api.themoviedb.org/3/movie/${req.params.id}/credits?api_key=${process.env.movieAPI}`
   );
+  const promiseVideo = axios.get(
+    `https://api.themoviedb.org/3/movie/${req.params.id}/videos?api_key=${process.env.movieAPI}&language=en-US`
+  );
 
-  Promise.all([promiseFilm, promiseCrew])
+  Promise.all([promiseFilm, promiseCrew, promiseVideo])
     .then(promiseResult => {
       res.render("movies/profile", {
         movie: promiseResult[0].data,
-        crew: promiseResult[1].data.cast
+        crew: promiseResult[1].data.cast,
+        video: promiseResult[2].data.results[0]
       });
+      console.log(promiseResult[2].data.results[0].id);
     })
     .catch(err => console.log(err));
 });
@@ -58,26 +63,33 @@ router.get("/actor/:id/profile", (req, res, next) => {
   const actorDetails = axios.get(
     `https://api.themoviedb.org/3/person/${req.params.id}?api_key=${process.env.movieAPI}&language=en-US`
   );
-  //const actorMovies = axios.get(`https://api.themoviedb.org/3/person/${req.params.id}/movie_credits?api_key=${process.env.movieAPI}&language=en-US`)
-  Promise.all([actorDetails, actorMovies])
-    .then(promiseResult => {
-      console.log(promiseResult[0].data),
-        res.render("movies/actor-profile", {
-          details: promiseResult[0].data,
-          movies: promiseResult[1].data.cast
-        });
-    })
-})
+  const actorMovies = axios.get(
+    `https://api.themoviedb.org/3/person/${req.params.id}/movie_credits?api_key=${process.env.movieAPI}&language=en-US`
+  );
+  Promise.all([actorDetails, actorMovies]).then(promiseResult => {
+    console.log(promiseResult[0].data),
+      res.render("movies/actor-profile", {
+        details: promiseResult[0].data,
+        movies: promiseResult[1].data.cast
+      });
+  });
+});
 
-router.get('/search/:genre', (req, res, next) => {
+router.get("/search/:genre", (req, res, next) => {
   Genre.find({ name: req.params.genre })
     .then(result => {
-      axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.movieAPI}&with_genres=${result[0].id}`)
+      axios
+        .get(
+          `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.movieAPI}&with_genres=${result[0].id}`
+        )
         .then(results => {
-          console.log(results.data.results)
-          res.render('movies/search-result', { search: req.params.genre, results: results.data.results })
+          console.log(results.data.results);
+          res.render("movies/search-result", {
+            search: req.params.genre,
+            results: results.data.results
+          });
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
       //res.render('movies/search-result', { peliculas: results })
     })
     .catch(err => console.log(err));
@@ -107,6 +119,12 @@ router.get("/:APIid/favourites", ensureLoggedIn("/login"), (req, res, next) => {
 
 
 
+
+router.get("/:id/videos", (req, res, next) => {
+  axios.get(
+    `https://api.themoviedb.org/3/movie/${req.params.id}/videos?api_key=${process.env.movieAPI}&language=en-US`
+  );
+});
 
 module.exports = router;
 

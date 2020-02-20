@@ -4,7 +4,9 @@
       <figure>
         <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{movie.poster_path}}" alt="{{movie.title}}">
       </figure>
-      <a href="/movies/{{movie.id}}/favourites">Añadir a favoritos</a>
+      <a class="btn btn-outline-success my-2 my-sm-0" href="/movies/{{movie.id}}/favourites">Add to favourites</a>
+      <iframe height="400px" width="500px" src="https://www.youtube.com/embed/{{video.key}}">
+      </iframe>
     </div>
     <div class="col-md-6">
       <h3>{{movie.title}}</h3>

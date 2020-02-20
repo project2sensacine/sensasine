@@ -2,7 +2,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-main{
+main {
   padding: 50px;
 }
 
@@ -15,8 +15,7 @@ a {
   width: 100%;
 }
 
-img{
-
+img {
   height: 300px;
   object-fit: cover;
 }
@@ -30,20 +29,18 @@ img{
 .result {
   display: flex;
   align-items: center;
-
 }
 
-
-.actor img{
+.actor img {
   height: 100px;
   object-fit: cover;
 }
 
-.profile img{
+.profile img {
   height: 300px;
 }
 
-h2 b{
+h2 b {
   font-size: 1.5em;
 }
 
