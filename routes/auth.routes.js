@@ -22,6 +22,8 @@ router.post(
     failureFlash: true,
     passReqToCallback: true
   })
+  // (window.getElementsByClassName(Hide).style.display = "none"),
+  // (window.getElementsByClassName(Hide1).style.display = "block")
 );
 
 router.get("/signup", (req, res, next) => {
@@ -70,6 +72,12 @@ router.post("/signup", (req, res, next) => {
             return res.redirect("/auth/profile");
           });
         })
+        // .then(
+        //   () => (document.getElementsByClassName(Hide).style.display = "none")
+        // )
+        // .then(
+        //   () => (document.getElementsByClassName(Hide1).style.display = "block")
+        // )
         .catch(() =>
           res.render("auth/signup", { message: "Something went wrong" })
         );
@@ -77,7 +85,7 @@ router.post("/signup", (req, res, next) => {
   );
 });
 
-router.get("/profile", ensureLoggedIn("/login"), (req, res) => {
+router.get("/profile", ensureLoggedIn("/auth/signup"), (req, res) => {
   res.render("auth/profile", {
     user: req.user
   });
