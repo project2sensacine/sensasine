@@ -16,33 +16,32 @@
 
             <li class="glide__slide">
 
-              <h5>{{data.title}}</h5>
-              <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{data.poster_path}}"
-                  alt="{{data.title}}">
-              </figure>
-              <a href="/movies/{{data.id}}/details">Ver detalles</a>
+              <a href="/movies/{{data.id}}/details">
+                <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{data.poster_path}}"
+                    alt="{{data.title}}">
+                </figure>
+                <h5>{{data.title}}</h5>
+              </a>
               <hr>
-
             </li>
 
             {{/each}}
-
-
 
           </ul>
         </div>
       </div>
       {{else}}
-      <p>OH NO HAY PELISSS</p>
+
+      <p>OH NO HAY PELIS</p>
 
       {{/if}}
     </div>
   </div>
   <div class="col-md-6">
     <div class="favMov">
-      <h3>To see movies</h3>
+      <h3>Watch List</h3>
 
-      {{#if favMovies}}
+      {{#if wishMovies}}
 
       <div id="glide2">
 
@@ -50,28 +49,27 @@
           <ul class="glide__slides">
 
 
-            {{#each favMovies}}
+            {{#each wishMovies}}
 
             <li class="glide__slide">
-
-              <h5>{{data.title}}</h5>
-              <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{data.poster_path}}"
-                  alt="{{data.title}}">
-              </figure>
-              <a href="/movies/{{data.id}}/details">Ver detalles</a>
+              <a href="/movies/{{data.id}}/details">
+                <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{data.poster_path}}"
+                    alt="{{data.title}}">
+                </figure>
+                <h5>{{data.title}}</h5>
+              </a>
               <hr>
 
             </li>
 
             {{/each}}
 
-
-
           </ul>
         </div>
       </div>
 
       {{else}}
+
       <p>OH NO HAY PELISSS</p>
 
       {{/if}}
@@ -81,6 +79,7 @@
 </div>
 
 <div class="info">
+
   <h3>Map of nearby cinemas</h3>
 
   <div>

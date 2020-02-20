@@ -89,23 +89,27 @@ router.post("/signup", (req, res, next) => {
 
 router.get("/profile", ensureLoggedIn("/auth/login"), (req, res) => {
 
-  let promises = []
-  console.log("YAYAYAYAYAYAY")
+  let promisesFav = []
+  let promiseWish = []
+
   req.user.favoriteMovie.forEach(elm => {
     const promesa = axios.get(`https://api.themoviedb.org/3/movie/${elm}?api_key=${process.env.movieAPI}&language=en-US`)
-    // .then(movie => {
-    //   favMovies.push(movie.data)
-    // })
-    // .then(console.log(favMovies, "--------------------------"))
-    // .catch(err => console.log(err))
-    promises.push(promesa)
+    promisesFav.push(promesa)
   })
 
+  req.user.wishMovie.forEach(elm => {
+    const promesa = axios.get(`https://api.themoviedb.org/3/movie/${elm}?api_key=${process.env.movieAPI}&language=en-US`)
+    promiseWish.push(promesa)
+  })
 
-  Promise.all(promises)
+  const arr = [Promise.all(promisesFav), Promise.all(promiseWish)]
+
+  console.log(arr)
+
+  Promise.all(arr)
     .then(movies => {
       console.log("promise all", movies)
-      const data = { user: req.user, favMovies: movies }
+      const data = { user: req.user, favMovies: movies[0], wishMovies: movies[1] }
       console.log(data)
       res.render("auth/profile", data)
     })
