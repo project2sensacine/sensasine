@@ -48,7 +48,7 @@ router.get("/:id/details", (req, res, next) => {
 router.get("/search", (req, res, next) => {
   axios
     .get(
-      `https://api.themoviedb.org/3/search/movie?api_key=${process.env.movieAPI}&query=${req.query.query}`
+      `https://api.themoviedb.org/3/search/movie?api_key=${process.env.movieAPI}&query=${req.query.query}&page=1`
     )
     .then(result => {
       res.render("movies/search-result", {
@@ -80,7 +80,7 @@ router.get("/search/:genre", (req, res, next) => {
     .then(result => {
       axios
         .get(
-          `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.movieAPI}&with_genres=${result[0].id}`
+          `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.movieAPI}&with_genres=${result[0].id}&page=1`
         )
         .then(results => {
           console.log(results.data.results);
@@ -100,15 +100,20 @@ router.get("/search/:genre", (req, res, next) => {
   // https://api.themoviedb.org/3/discover/movie?api_key=${process.env.movieAPI}&with_genres=28    peliculas por
 });
 
-
-
 //GUARDAR PELIS EN FAVORITOS
-router.get("/:APIid/favourites", ensureLoggedIn("/login"), (req, res, next) => {
-
-  User.findByIdAndUpdate(req.user._id, { $push: { favoriteMovie: req.params.APIid } }, { new: true })
-    .then(x => console.log(x))
-    .catch(err => console.log(err))
-});
+router.get(
+  "/:APIid/favourites",
+  ensureLoggedIn("/auth/login"),
+  (req, res, next) => {
+    User.findByIdAndUpdate(
+      req.user._id,
+      { $push: { favoriteMovie: req.params.APIid } },
+      { new: true }
+    )
+      .then(x => console.log(x))
+      .catch(err => console.log(err));
+  }
+);
 
 // router.get("/:APIid/whishlist", ensureLoggedIn("/login"), (req, res, next) => {
 
@@ -116,9 +121,6 @@ router.get("/:APIid/favourites", ensureLoggedIn("/login"), (req, res, next) => {
 //     .then(x => console.log(x))
 //     .catch(err => console.log(err))
 // });
-
-
-
 
 router.get("/:id/videos", (req, res, next) => {
   axios.get(
@@ -128,49 +130,34 @@ router.get("/:id/videos", (req, res, next) => {
 
 module.exports = router;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Movie.find({ APIid: req.params.APIid })
-  //   .then(movie => {
+//   .then(movie => {
 
-  //     if (movie !== null) {
-  //       const favoritemovies = req.user.favoriteMovies;
-  //       favoritemovies.push(movie._id);
+//     if (movie !== null) {
+//       const favoritemovies = req.user.favoriteMovies;
+//       favoritemovies.push(movie._id);
 
-  //       // req.user.favoriteMovies.push()
+//       // req.user.favoriteMovies.push()
 
-  //       User.findByIdAndUpdate(req.user._id, {
-  //         favoritemovies: favoritemovies
-  //       });
-  //     } else {
-  //       const newMovie = new Movie({
-  //         APIid: req.params.APIid,
-  //         poster_path: req.params.poster_path,
-  //         title: req.params.title
-  //       });
-  //       Movie.create(newMovie)
-  //         .then(() => console.log("La pelicula se ha creado correctamente"))
-  //         .catch(err => console.log(err));
-  //     }
+//       User.findByIdAndUpdate(req.user._id, {
+//         favoritemovies: favoritemovies
+//       });
+//     } else {
+//       const newMovie = new Movie({
+//         APIid: req.params.APIid,
+//         poster_path: req.params.poster_path,
+//         title: req.params.title
+//       });
+//       Movie.create(newMovie)
+//         .then(() => console.log("La pelicula se ha creado correctamente"))
+//         .catch(err => console.log(err));
+//     }
 
-  //     const favoritemovies = req.user.favoriteMovies;
-  //     favoritemovies.push();
-  //     User.findById(req.user.id);
-  //     //       .then(user =>
-  //     // console.log("hola")
-  //   });
-  // newMovie;
-  // Movie.create();
+//     const favoritemovies = req.user.favoriteMovies;
+//     favoritemovies.push();
+//     User.findById(req.user.id);
+//     //       .then(user =>
+//     // console.log("hola")
+//   });
+// newMovie;
+// Movie.create();

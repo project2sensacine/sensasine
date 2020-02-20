@@ -1,37 +1,30 @@
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<div>
+  <h2>Login</h2>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <form action="/auth/login" method="POST" id="form-container">
+    <label for="username">Username</label>
+    <input id="username" type="text" name="username" placeholder="Your username">
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <br><br>
 
+    <label for="password">Password</label>
+    <input id="password" type="password" name="password" placeholder="Your password">
 
-<h2>Login</h2>
-
-<form action="/auth/login" method="POST" id="form-container">
-  <label for="username">Username</label>
-  <input id="username" type="text" name="username" placeholder="Your username">
-
-  <br><br>
-
-  <label for="password">Password</label>
-  <input id="password" type="password" name="password" placeholder="Your password">
-
-  <br><br>
+    <br><br>
 
 
-  {{#if message }}
-  <div class="error-message">{{ message }}</div>
-  {{/if}}
+    {{#if message }}
+    <div class="error-message">{{ message }}</div>
+    {{/if}}
 
-  <br><br>
+    <br><br>
 
-  <button class="btn btn-outline-success my-2 my-sm-0">Login</button>
+    <button class="btn btn-outline-success my-2 my-sm-0">Login</button>
 
-  <p class="account-message">
-    Don't have an account yet?
-    <a href="/auth/signup">Signup</a>
-  </p>
-</form>
+    <p class="account-message">
+      Don't have an account yet?
+      <a href="/auth/signup">Signup</a>
+    </p>
+  </form>
+
+</div>
