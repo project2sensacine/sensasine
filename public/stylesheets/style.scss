@@ -1,13 +1,10 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: lightgray;
 }
 
 main {
   padding: 50px;
-}
-
-a {
-  color: #00b7ff;
 }
 
 #placeMap {
@@ -51,8 +48,12 @@ h3 {
   height: 100%;
 }
 a {
+  margin: 10px, 10px;
+}
+div {
   margin: 10px;
 }
+
 // .glide__track {
 //   background-color: slateblue;
 // }
