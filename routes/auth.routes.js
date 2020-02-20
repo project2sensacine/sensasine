@@ -93,27 +93,52 @@ router.get("/profile", ensureLoggedIn("/auth/login"), (req, res) => {
   let promiseWish = []
 
   req.user.favoriteMovie.forEach(elm => {
-    const promesa = axios.get(`https://api.themoviedb.org/3/movie/${elm}?api_key=${process.env.movieAPI}&language=en-US`)
-    promisesFav.push(promesa)
+    const promesaFav = axios.get(`https://api.themoviedb.org/3/movie/${elm}?api_key=${process.env.movieAPI}&language=en-US`)
+    promisesFav.push(promesaFav)
   })
 
   req.user.wishMovie.forEach(elm => {
-    const promesa = axios.get(`https://api.themoviedb.org/3/movie/${elm}?api_key=${process.env.movieAPI}&language=en-US`)
-    promiseWish.push(promesa)
+    const promesaWish = axios.get(`https://api.themoviedb.org/3/movie/${elm}?api_key=${process.env.movieAPI}&language=en-US`)
+    promiseWish.push(promesaWish)
   })
 
-  const arr = [Promise.all(promisesFav), Promise.all(promiseWish)]
+  // let promesa1
+  // let promesa2
+  Promise.all(promisesFav)
+    .then(result => {
+      arrObjPromesa1 = result
 
-  console.log(arr)
+      Promise.all(promiseWish)
+        .then(result => {
+          arrObjPromesa2 = result
 
-  Promise.all(arr)
-    .then(movies => {
-      console.log("promise all", movies)
-      const data = { user: req.user, favMovies: movies[0], wishMovies: movies[1] }
-      console.log(data)
-      res.render("auth/profile", data)
+            // Promise.all([promesa1, promesa2])
+            //   .then(result => {
+            //     promesa1 = result[0]
+            //     promesa2 = result[1]
+            //     console.log("esto que es", promesa1)
+            //     //console.log("------------------------PROMESA 1_---------------", promesa1[0])
+            //   })
+
+
+            //console.log("Segundo promise all --------------------------------------------------------------------------------------")
+
+
+            //console.log("------------------------PROMESA 2_---------------", promesa2[0])
+            .then(() => res.render('auth/profile', { user: req.user, favMovies: promesa1, wishMovies: promesa2 }))
+        })
     })
-    .catch(err => res.render("error"))
+    .catch(err => console.log(err))
+
+
+  // Promise.all(promesa1, promesa2)
+  //   .then(movies => {
+  //     console.log("promise all", movies)
+  //     const data = { user: req.user, favMovies: movies[0], wishMovies: movies[1] }
+  //     console.log(data)
+  //     res.render("auth/profile", data)
+  //   })
+  //   .catch(err => res.render("error"))
 
 
 });
