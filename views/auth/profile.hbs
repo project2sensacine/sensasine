@@ -16,23 +16,24 @@
 
             <li class="glide__slide">
 
-              <a href="/movies/{{data.id}}/details">
+              <a href="/movies/{{data.id}}/details" class="text-decoration-none text-reset">
                 <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{data.poster_path}}"
                     alt="{{data.title}}">
                 </figure>
                 <h5>{{data.title}}</h5>
               </a>
-              <hr>
+
             </li>
 
             {{/each}}
 
           </ul>
         </div>
+        <hr>
       </div>
       {{else}}
 
-      <p>OH NO HAY PELIS</p>
+      <p class="opacity">No movies selected</p>
 
       {{/if}}
     </div>
@@ -52,13 +53,13 @@
             {{#each wishMovies}}
 
             <li class="glide__slide">
-              <a href="/movies/{{data.id}}/details">
+              <a href="/movies/{{data.id}}/details" class="text-decoration-none text-reset">
                 <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{data.poster_path}}"
                     alt="{{data.title}}">
                 </figure>
                 <h5>{{data.title}}</h5>
               </a>
-              <hr>
+
 
             </li>
 
@@ -66,11 +67,12 @@
 
           </ul>
         </div>
+        <hr>
       </div>
 
       {{else}}
 
-      <p>OH NO HAY PELISSS</p>
+      <p class="opacity">No movies selected</p>
 
       {{/if}}
     </div>
