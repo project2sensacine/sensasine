@@ -9,7 +9,12 @@ main {
   height: 400px;
   width: 100%; }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-bottom: 25px; }
 
 img {
@@ -71,5 +76,31 @@ a {
 a:hover {
   color: #28a745;
   text-decoration: none; }
+
+.round {
+  max-width: 400px;
+  border-radius: 10px;
+  background-color: darkgray;
+  padding-left: 20px;
+  padding-bottom: 10px; }
+
+.green {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px; }
+
+.white {
+  border-radius: 10px;
+  background-color: white;
+  padding: 0px; }
+
+.padder {
+  padding: 10px; }
+
+.large {
+  font-size: medium;
+  margin: 10px, 20px; }
 
 /*# sourceMappingURL=style.css.map */

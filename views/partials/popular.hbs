@@ -1,0 +1,19 @@
+<div class="glide__track" data-glide-el="track">
+  <ul class="glide__slides align-items-start">
+
+    {{#each popular}}
+
+    <li class="glide__slide">
+
+      <a href="/movies/{{id}}/details" class="text-decoration-none text-reset">
+        <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{poster_path}}" alt="{{title}}"></figure>
+        <h5>{{title}}</h5>
+      </a>
+
+
+    </li>
+
+    {{/each}}
+
+  </ul>
+</div>

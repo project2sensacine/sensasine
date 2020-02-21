@@ -1,33 +1,53 @@
+<div class="container">
+  <div class="row justify-content-between">
+    <div class=" col-md-6 round">
+      <h2>Signup</h2>
 
+      <form action="/auth/signup" method="POST" id="form-container">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" placeholder="Your username">
 
+        <br><br>
 
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" placeholder="Your password">
 
-<h2>Signup</h2>
+        <br><br>
 
-<form action="/auth/signup" method="POST" id="form-container">
-  <label for="username">Username</label>
-  <input id="username" type="text" name="username" placeholder="Your username">
+        <label for="location">Address</label>
+        <input id="location" type="text" name="location" placeholder="Your address">
+        <br>
+        {{#if message }}
+        <div class="error-message">{{ message }}</div>
+        {{/if}}
+        <br><br>
+        <button class="btn btn-outline-success my-2 my-sm-0">Create account</button>
+        <br><br>
+        <p class="account-message">
+          Do you already have an account?
+          <a href="/auth/login">Login</a>
+        </p>
+      </form>
+    </div>
 
-  <br><br>
+    <div class="col-md-6 white">
+      <h2 class="green">Why signup?</h2>
 
-  <label for="password">Password</label>
-  <input id="password" type="password" name="password" placeholder="Your password">
+      <p class="padder">There are various perks avaliable to those who decide to signup into Sensacine, some of them
+        are:</p>
 
-  <br><br>
-
-  <label for="location">Address</label>
-  <input id="location" type="text" name="location" placeholder="Your address">
-  <br>
-  {{#if message }}
-  <div class="error-message">{{ message }}</div>
-  {{/if}}
-
-  <br><br>
-
-  <button class="btn btn-outline-success my-2 my-sm-0">Create account</button>
-
-  <p class="account-message">
-    Do you already have an account?
-    <a href="/auth/login">Login</a>
-  </p>
-</form>
+      <ul class="large">
+        <li class="large">
+          A personalised list of favourite movies
+        </li>
+        <li class="large">
+          A personalised wishlist
+        </li>
+        <li class="large">
+          A map of all movie theaters near your area
+        </li>
+      </ul>
+      <hr>
+    </div>
+  </div>
+</div>
