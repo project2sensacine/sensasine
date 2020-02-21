@@ -105,22 +105,21 @@ router.get(
   "/:APIid/favourites",
   ensureLoggedIn("/auth/login"),
   (req, res, next) => {
-    User.findByIdAndUpdate(
-      req.user._id,
-      { $push: { favoriteMovie: req.params.APIid } },
-      { new: true }
-    )
+
+    User.findByIdAndUpdate(req.user._id, { $push: { favoriteMovie: req.params.APIid } }, { new: true })
       .then(x => console.log(x))
       .catch(err => console.log(err));
   }
 );
 
-// router.get("/:APIid/whishlist", ensureLoggedIn("/login"), (req, res, next) => {
+router.get("/:APIid/whishlist", ensureLoggedIn("/login"), (req, res, next) => {
 
-//   User.findByIdAndUpdate(req.user._id, { $push: { favMovie: req.params.APIid } }, { new: true })
-//     .then(x => console.log(x))
-//     .catch(err => console.log(err))
-// });
+  User.findByIdAndUpdate(req.user._id, { $push: { wishMovie: req.params.APIid } }, { new: true })
+    .then(x => console.log(x))
+    .catch(err => console.log(err))
+});
+
+
 
 router.get("/:id/videos", (req, res, next) => {
   axios.get(
