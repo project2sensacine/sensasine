@@ -30,20 +30,10 @@ router.get("/:id/details", (req, res, next) => {
         crew: promiseResult[1].data.cast,
         video: promiseResult[2].data.results[0]
       });
-      console.log(promiseResult[2].data.results[0].id);
     })
     .catch(err => console.log(err));
 });
 
-// router.get("/ggg", (reqa, res, next) => {
-//   axios
-//     .get(
-//       `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.movieAPI}&language=en-US`
-//     )
-//     .then(results => Genre.create(results.data.genres))
-//     .then(genres => console.log(" se ha cargado la info en la bbdd", genres))
-//     .catch(err => console.log(err));
-// });
 
 router.get("/search", (req, res, next) => {
   req.query.page++;
@@ -69,15 +59,15 @@ router.get("/actor/:id/profile", (req, res, next) => {
     `https://api.themoviedb.org/3/person/${req.params.id}/movie_credits?api_key=${process.env.movieAPI}&language=en-US`
   );
   Promise.all([actorDetails, actorMovies]).then(promiseResult => {
-    console.log(promiseResult[0].data),
-      res.render("movies/actor-profile", {
-        details: promiseResult[0].data,
-        movies: promiseResult[1].data.cast
-      });
+    res.render("movies/actor-profile", {
+      details: promiseResult[0].data,
+      movies: promiseResult[1].data.cast
+    });
   });
 });
 
 router.get("/search/:genre", (req, res, next) => {
+
   //req.query.page++;
   Genre.find({ name: req.params.genre })
     .then(result => {
@@ -86,7 +76,6 @@ router.get("/search/:genre", (req, res, next) => {
           `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.movieAPI}&with_genres=${result[0].id}&page=1`
         )
         .then(results => {
-          console.log(results.data.results);
           res.render("movies/search-result", {
             search: req.params.genre,
             results: results.data.results
@@ -98,6 +87,7 @@ router.get("/search/:genre", (req, res, next) => {
     })
     .catch(err => console.log(err));
 });
+
 
 //GUARDAR PELIS EN FAVORITOS
 router.get(
@@ -128,34 +118,3 @@ router.get("/:id/videos", (req, res, next) => {
 
 module.exports = router;
 
-// Movie.find({ APIid: req.params.APIid })
-//   .then(movie => {
-
-//     if (movie !== null) {
-//       const favoritemovies = req.user.favoriteMovies;
-//       favoritemovies.push(movie._id);
-
-//       // req.user.favoriteMovies.push()
-
-//       User.findByIdAndUpdate(req.user._id, {
-//         favoritemovies: favoritemovies
-//       });
-//     } else {
-//       const newMovie = new Movie({
-//         APIid: req.params.APIid,
-//         poster_path: req.params.poster_path,
-//         title: req.params.title
-//       });
-//       Movie.create(newMovie)
-//         .then(() => console.log("La pelicula se ha creado correctamente"))
-//         .catch(err => console.log(err));
-//     }
-
-//     const favoritemovies = req.user.favoriteMovies;
-//     favoritemovies.push();
-//     User.findById(req.user.id);
-//     //       .then(user =>
-//     // console.log("hola")
-//   });
-// newMovie;
-// Movie.create();

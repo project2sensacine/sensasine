@@ -24,14 +24,9 @@ function initMap() {
     request = {
       location: new google.maps.LatLng(x.lat, x.lng),
       radius: 5500,
-      // bounds: new google.maps.LatLngBounds(
-      //   new google.maps.LatLng(40.217815, -4.17753),
-      //   new google.maps.LatLng(40.623464, -3.474426)
-      // ),
       type: ["movie_theater"]
     };
     map = new google.maps.Map(document.getElementById("placeMap"), mapOptions);
-    console.log(x)
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback);
   })
@@ -41,8 +36,8 @@ function initMap() {
 function codeAddress() {
   let address = document.getElementById("address").value;
   geocoder.geocode({
-      address: address
-    },
+    address: address
+  },
     function (results, status) {
       if (status == "OK") {
         map.setCenter(results[0].geometry.location);
@@ -67,8 +62,8 @@ function coordinates() {
   let coords = {}
   return new Promise((resolve, reject) => {
     geocoder1.geocode({
-        address: address
-      },
+      address: address
+    },
       (resultsPlace, status) => {
         if (status == "OK") {
           coords.lat = resultsPlace[0].geometry.location.lat()

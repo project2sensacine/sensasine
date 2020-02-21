@@ -1,4 +1,3 @@
-console.log("entra en el script Sliders");
 
 if (document.querySelectorAll("#glide1").length) {
   new Glide("#glide1", {
