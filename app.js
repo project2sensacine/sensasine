@@ -14,7 +14,6 @@ require("./configs/middleware.config")(app);
 require("./configs/locals.configs")(app);
 
 // Enable authentication using session + passport
-
 require("./configs/passport")(app);
 
 //Rutas

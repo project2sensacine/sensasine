@@ -12,7 +12,7 @@ if (document.querySelectorAll("#glide1").length) {
 if (document.querySelectorAll('#glide2').length) {
 
   new Glide('#glide2', {
-    type: 'slider',
+    type: 'carousel',
     startAt: 0,
     perView: 3
   }).mount();
@@ -22,7 +22,7 @@ if (document.querySelectorAll('#glide2').length) {
 if (document.querySelectorAll('#glide3').length) {
 
   new Glide('#glide3', {
-    type: 'slider',
+    type: 'carousel',
     startAt: 0,
     perView: 6
   }).mount();
