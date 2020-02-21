@@ -74,6 +74,13 @@ a {
 .row {
   margin: 10px;
 }
+a {
+  color: black;
+}
+a:hover {
+  color: #28a745;
+  text-decoration: none;
+}
 // ul {
 //   background-color: lightpink;
 // }

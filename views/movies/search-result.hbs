@@ -21,7 +21,15 @@
     </div>
 
     {{/each}}
+    <div class="row justify-content-center">
 
+      <a id="prevpage" class="btn btn-outline-success my-2 my-sm-0 m-5"
+        href='/movies/search?query={{search}}&page=0'>prev
+        page</a>
+      <a id="nextpage" class="btn btn-outline-success my-2 my-sm-0 m-5"
+        href='/movies/search?query={{search}}&page={{page}}'>next
+        page</a>
+    </div>
   </div>
   <hr>
 
