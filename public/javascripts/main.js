@@ -1,22 +1,17 @@
 let geocoder;
-var map;
-var service;
+let map;
+let service;
 let infowindow;
 let request;
 
-
 //initiator
 function initMap() {
-
-
-  // var movieLocation = results[0].geometry.location();
   geocoder = new google.maps.Geocoder();
   geocoder1 = new google.maps.Geocoder();
   infowindow = new google.maps.InfoWindow();
-  const coords = coordinates()
+  const coords = coordinates();
 
   coords.then(x => {
-
     let mapOptions = {
       zoom: 15,
       center: codeAddress()
@@ -24,26 +19,23 @@ function initMap() {
     request = {
       location: new google.maps.LatLng(x.lat, x.lng),
       radius: 5500,
-      // bounds: new google.maps.LatLngBounds(
-      //   new google.maps.LatLng(40.217815, -4.17753),
-      //   new google.maps.LatLng(40.623464, -3.474426)
-      // ),
       type: ["movie_theater"]
     };
     map = new google.maps.Map(document.getElementById("placeMap"), mapOptions);
-    console.log(x)
+    console.log(x);
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback);
-  })
+  });
 }
 
 //geocoder
 function codeAddress() {
   let address = document.getElementById("address").value;
-  geocoder.geocode({
+  geocoder.geocode(
+    {
       address: address
     },
-    function (results, status) {
+    function(results, status) {
       if (status == "OK") {
         map.setCenter(results[0].geometry.location);
 
@@ -64,25 +56,24 @@ function codeAddress() {
 // places
 function coordinates() {
   let address = document.getElementById("address").value;
-  let coords = {}
+  let coords = {};
   return new Promise((resolve, reject) => {
-    geocoder1.geocode({
+    geocoder1.geocode(
+      {
         address: address
       },
       (resultsPlace, status) => {
         if (status == "OK") {
-          coords.lat = resultsPlace[0].geometry.location.lat()
-          coords.lng = resultsPlace[0].geometry.location.lng()
-          resolve(coords)
+          coords.lat = resultsPlace[0].geometry.location.lat();
+          coords.lng = resultsPlace[0].geometry.location.lng();
+          resolve(coords);
         } else {
-          reject(new Error('No results found'))
+          reject(new Error("No results found"));
         }
-      })
+      }
+    );
   });
 }
-
-
-
 
 function callback(resultsPlace, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -93,16 +84,13 @@ function callback(resultsPlace, status) {
 }
 
 function createMarker(resultsPlace) {
-
-  var marker1 = new google.maps.Marker({
+  const marker1 = new google.maps.Marker({
     map: map,
-    position: resultsPlace.geometry.location,
-
+    position: resultsPlace.geometry.location
   });
 
-  google.maps.event.addListener(marker1, 'click', function () {
+  google.maps.event.addListener(marker1, "click", function() {
     infowindow.setContent(resultsPlace.name);
     infowindow.open(map, this);
-
   });
 }

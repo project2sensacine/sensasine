@@ -1,102 +1,105 @@
-<h1>Welcome, {{user.username}}! </h1>
-<div class="row">
-  <div class="col-md-6">
+<div class="container">
+  <div class="row">
+    <h1>Welcome, {{user.username}}! </h1>
+  </div>
+  <div class="row justify-content-center">
+    <div class=" col-md-6">
 
-    <div class="favMov">
-      <h3>Favourite movies</h3>
-      {{#if favMovies}}
+      <div class="favMov">
+        <h3>Favourite Movies</h3>
+        {{#if favMovies}}
 
-      <div id="glide1">
+        <div id="glide1">
 
-        <div class="glide__track" data-glide-el="track">
-          <ul class="glide__slides">
+          <div class="glide__track" data-glide-el="track">
+            <ul class="glide__slides">
 
 
-            {{#each favMovies}}
+              {{#each favMovies}}
 
-            <li class="glide__slide">
+              <li class="glide__slide">
 
-              <a href="/movies/{{data.id}}/details" class="text-decoration-none text-reset">
-                <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{data.poster_path}}"
-                    alt="{{data.title}}">
-                </figure>
-                <h5>{{data.title}}</h5>
-              </a>
+                <a href="/movies/{{data.id}}/details" class="text-decoration-none text-reset">
+                  <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{data.poster_path}}"
+                      alt="{{data.title}}">
+                  </figure>
+                  <h5>{{data.title}}</h5>
+                </a>
 
-            </li>
+              </li>
 
-            {{/each}}
+              {{/each}}
 
-          </ul>
+            </ul>
+          </div>
+          <hr>
         </div>
-        <hr>
+        {{else}}
+
+        <p class="opacity">No movies selected</p>
+
+        {{/if}}
       </div>
-      {{else}}
+    </div>
 
-      <p class="opacity">No movies selected</p>
+    <div class="col-md-6">
+      <div class="favMov">
+        <h3>Watch List</h3>
 
-      {{/if}}
+        {{#if wishMovies}}
+
+        <div id="glide2">
+
+          <div class="glide__track" data-glide-el="track">
+            <ul class="glide__slides">
+
+
+              {{#each wishMovies}}
+
+              <li class="glide__slide">
+                <a href="/movies/{{data.id}}/details" class="text-decoration-none text-reset">
+                  <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{data.poster_path}}"
+                      alt="{{data.title}}">
+                  </figure>
+                  <h5>{{data.title}}</h5>
+                </a>
+
+
+              </li>
+
+              {{/each}}
+
+            </ul>
+          </div>
+          <hr>
+        </div>
+
+        {{else}}
+
+        <p class="opacity">No movies selected</p>
+
+        {{/if}}
+      </div>
+
     </div>
   </div>
+  <hr>
+  <div class="info">
 
-  <div class="col-md-6">
-    <div class="favMov">
-      <h3>Watch List</h3>
+    <h3>Map of nearby cinemas</h3>
 
-      {{#if wishMovies}}
-
-      <div id="glide2">
-
-        <div class="glide__track" data-glide-el="track">
-          <ul class="glide__slides">
-
-
-            {{#each wishMovies}}
-
-            <li class="glide__slide">
-              <a href="/movies/{{data.id}}/details" class="text-decoration-none text-reset">
-                <figure><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2{{data.poster_path}}"
-                    alt="{{data.title}}">
-                </figure>
-                <h5>{{data.title}}</h5>
-              </a>
-
-
-            </li>
-
-            {{/each}}
-
-          </ul>
-        </div>
-        <hr>
-      </div>
-
-      {{else}}
-
-      <p class="opacity">No movies selected</p>
-
-      {{/if}}
+    <div>
+      <input id="address" type="textbox" value="{{user.location}}">
+      <input type="button" value="Search" onclick="initMap()">
     </div>
+
+    <br>
+    <div id="placeMap"></div>
+
+
 
   </div>
 </div>
-<hr>
-<div class="info">
-
-  <h3>Map of nearby cinemas</h3>
-
-  <div>
-    <input id="address" type="textbox" value="{{user.location}}">
-    <input type="button" value="Search" onclick="initMap()">
-  </div>
-
-  <br>
-  <div id="placeMap"></div>
-
-
-
-</div>
-
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/javascripts/main.js"></script>
 <script

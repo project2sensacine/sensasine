@@ -24,11 +24,3 @@ if (document.querySelectorAll(".glide3").length) {
   }).mount();
 }
 
-// if (document.querySelectorAll('.glide1').length) {
-
-//   new Glide('.glide3', {
-//     type: 'carousel',
-//     startAt: 0,
-//     perView: 6
-//   }).mount()
-// }
