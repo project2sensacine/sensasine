@@ -32,7 +32,6 @@ router.get("/signup", (req, res, next) => {
 });
 
 router.post("/signup", (req, res, next) => {
-  console.log("HOLA HOLA");
   const username = req.body.username;
   const password = req.body.password;
   const location = req.body.location;
@@ -73,12 +72,6 @@ router.post("/signup", (req, res, next) => {
             return res.redirect("/auth/profile");
           });
         })
-        // .then(
-        //   () => (document.getElementsByClassName(Hide).style.display = "none")
-        // )
-        // .then(
-        //   () => (document.getElementsByClassName(Hide1).style.display = "block")
-        // )
         .catch(() =>
           res.render("auth/signup", { message: "Something went wrong" })
         );
@@ -93,8 +86,6 @@ router.get("/profile", ensureLoggedIn("/auth/login"), (req, res) => {
 
   let length = req.user.favoriteMovie.length
 
-  console.log(length)
-
   req.user.favoriteMovie.forEach(elm => {
     const promesaFav = axios.get(`https://api.themoviedb.org/3/movie/${elm}?api_key=${process.env.movieAPI}&language=en-US`)
     promises.push(promesaFav)
@@ -105,35 +96,17 @@ router.get("/profile", ensureLoggedIn("/auth/login"), (req, res) => {
     promises.push(promesaWish)
   })
 
-  console.log(promises)
-
   Promise.all(promises)
     .then(results => {
 
       const promesa1 = results.slice(0, length)
       const promesa2 = results.slice(length, results.length)
 
-
-      console.log(promesa2.length)
-
       res.render('auth/profile', { user: req.user, favMovies: promesa1, wishMovies: promesa2 })
     })
     .catch(err => console.log(err))
 })
 
-
-
-// Promise.all(promesa1, promesa2)
-//   .then(movies => {
-//     console.log("promise all", movies)
-//     const data = { user: req.user, favMovies: movies[0], wishMovies: movies[1] }
-//     console.log(data)
-//     res.render("auth/profile", data)
-//   })
-//   .catch(err => res.render("error"))
-
-
-//});
 
 router.get("/logout", (req, res) => {
   req.logout();

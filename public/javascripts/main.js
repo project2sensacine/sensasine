@@ -22,7 +22,6 @@ function initMap() {
       type: ["movie_theater"]
     };
     map = new google.maps.Map(document.getElementById("placeMap"), mapOptions);
-    console.log(x);
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback);
   });
@@ -31,11 +30,10 @@ function initMap() {
 //geocoder
 function codeAddress() {
   let address = document.getElementById("address").value;
-  geocoder.geocode(
-    {
-      address: address
-    },
-    function(results, status) {
+  geocoder.geocode({
+    address: address
+  },
+    function (results, status) {
       if (status == "OK") {
         map.setCenter(results[0].geometry.location);
 
@@ -58,10 +56,9 @@ function coordinates() {
   let address = document.getElementById("address").value;
   let coords = {};
   return new Promise((resolve, reject) => {
-    geocoder1.geocode(
-      {
-        address: address
-      },
+    geocoder1.geocode({
+      address: address
+    },
       (resultsPlace, status) => {
         if (status == "OK") {
           coords.lat = resultsPlace[0].geometry.location.lat();

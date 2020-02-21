@@ -4,5 +4,4 @@ new Glide('.glide', {
   perView: 7
 
 }).mount()
-console.log("llama al glide")
 
