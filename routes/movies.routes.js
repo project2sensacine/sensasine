@@ -9,7 +9,7 @@ const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 
 const axios = require("axios");
 const axiosApp = axios.create({ baseURL: `https://api.themoviedb.org/3` });
-
+const pageNumber = 1;
 // // https://api.themoviedb.org/3/search/movie?api_key=###&query=the+avengers
 
 router.get("/:id/details", (req, res, next) => {
@@ -46,14 +46,16 @@ router.get("/:id/details", (req, res, next) => {
 // });
 
 router.get("/search", (req, res, next) => {
+  req.query.page++;
   axios
     .get(
-      `https://api.themoviedb.org/3/search/movie?api_key=${process.env.movieAPI}&query=${req.query.query}&page=1`
+      `https://api.themoviedb.org/3/search/movie?api_key=${process.env.movieAPI}&query=${req.query.query}&page=${req.query.page}`
     )
     .then(result => {
       res.render("movies/search-result", {
         search: req.query.query,
-        results: result.data.results
+        results: result.data.results,
+        page: req.query.page
       });
     })
     .catch(err => console.log(err));
@@ -76,6 +78,7 @@ router.get("/actor/:id/profile", (req, res, next) => {
 });
 
 router.get("/search/:genre", (req, res, next) => {
+  //req.query.page++;
   Genre.find({ name: req.params.genre })
     .then(result => {
       axios
@@ -87,17 +90,13 @@ router.get("/search/:genre", (req, res, next) => {
           res.render("movies/search-result", {
             search: req.params.genre,
             results: results.data.results
+            //page: req.query.page
           });
         })
         .catch(err => console.log(err));
       //res.render('movies/search-result', { peliculas: results })
     })
     .catch(err => console.log(err));
-  axios.get(
-    `https://api.themoviedb.org/3/person/${req.params.id}?api_key=${process.env.movieAPI}&language=en-US`
-  );
-  // https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.movieAPI}&language=en-US URL con todos los generos y los codigos
-  // https://api.themoviedb.org/3/discover/movie?api_key=${process.env.movieAPI}&with_genres=28    peliculas por
 });
 
 //GUARDAR PELIS EN FAVORITOS

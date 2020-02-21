@@ -18,42 +18,45 @@
       </ul>
     </div>
   </div>
-  <div class="row justify-content-center">
 
-    <a class="btn btn-outline-success my-2 my-sm-0 m-5" href="/movies/{{movie.id}}/favourites">Add to favourites</a>
-    <p class="message">This film has been added to your favourites list</p>
-    <a class="btn btn-outline-success my-2 my-sm-0 m-5" href="/movies/{{movie.id}}/whishlist">Add to watchlist</a>
-    <p class="message">This film has been added to your watchlist</p>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="glide">
-        <div class="glide__track" data-glide-el="track">
-          <ul class="glide__slides">
-            {{#each crew}}
-            <li class="glide__slide">
-              <a href="/movies/actor/{{id}}/profile" class="text-decoration-none text-reset">
-                <figure class="actor">
-                  <img src="https://image.tmdb.org/t/p/w276_and_h350_face{{profile_path}}" alt="{{name}}">
-                </figure>
-                <h5>{{name}}</h5>
-                <p>{{character}}</p>
-              </a>
-            </li>
-            {{/each}}
-          </ul>
-        </div>
+  <a class="btn btn-outline-success my-2 my-sm-0 m-5" href="/movies/{{movie.id}}/favourites">Add to favourites</a>
+  <p class="message">This film has been added to your favourites list</p>
+  <a class="btn btn-outline-success my-2 my-sm-0 m-5" href="/movies/{{movie.id}}/whishlist">Add to watchlist</a>
+  <p class="message">This film has been added to your watchlist</p>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="glide">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          {{#each crew}}
+          <li class="glide__slide">
+            <a href="/movies/actor/{{id}}/profile" class="text-decoration-none text-reset">
+              <figure class="actor">
+                <img src="https://image.tmdb.org/t/p/w276_and_h350_face{{profile_path}}" alt="{{name}}">
+              </figure>
+              <h5>{{name}}</h5>
+              <p>{{character}}</p>
+            </a>
+          </li>
+          {{/each}}
+        </ul>
       </div>
     </div>
   </div>
+</div>
+<div class="row justify-content-center">
 
-  <br>
-  <br>
+  <a class="btn btn-outline-success my-2 my-sm-0 m-5" href="/movies/{{movie.id}}/favourites">Add to favourites</a>
+  <a class="btn btn-outline-success my-2 my-sm-0 m-5" href="/movies/{{movie.id}}/favourites">Add to watchlist</a>
+</div>
+<br>
+<br>
 
-  <div class="row">
-    <iframe height="400px" width="1000vh" src="https://www.youtube.com/embed/{{video.key}}">
-    </iframe>
-  </div>
+<div class="row">
+  <iframe height="400px" width="1000vh" src="https://www.youtube.com/embed/{{video.key}}">
+  </iframe>
+</div>
 
 </div>
 <script src="../../glide/dist/glide.min.js"></script>
